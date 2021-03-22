@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login_panel {
+public class Main_panel {
     private JButton button1;
     private JPanel panel1;
     private JLabel label1;
@@ -11,7 +11,7 @@ public class Login_panel {
     private static JFrame frame;
 
 
-    public Login_panel() {
+    public Main_panel() {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +35,7 @@ public class Login_panel {
 
     public static void main(String[] args) {
         frame = new JFrame("Frame");
-        frame.setContentPane(new Login_panel().panel1);
+        frame.setContentPane(new Main_panel().panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setSize(500,600);
