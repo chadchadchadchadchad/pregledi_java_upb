@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="pregledi_java" />
         <module name="pregledi_for_real" />
-        <module name="pregledi_java_upb-master" />
       </profile>
     </annotationProcessing>
   </component>
