@@ -21,10 +21,10 @@ public class Main_panel {
                 int idp = dbconnect.returncompanyid(mail, pass);
 
                 if(idp == 0) {
-                    System.out.println("Nedela");
+                    JOptionPane.showMessageDialog(null, "Login failed");
                 }
                 else {
-                    System.out.println("Dela");
+                    JOptionPane.showMessageDialog(null, "Login successful");
                     frame.dispose();
                     Check_up_panel.main(idp);
                 }
