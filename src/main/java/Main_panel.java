@@ -31,7 +31,7 @@ public class Main_panel {
             }
         });
     }
-    //comment
+    //comment #2
 
     public static void main(String[] args) {
         frame = new JFrame("Frame");
