@@ -24,7 +24,6 @@ public class Main_panel {
                     JOptionPane.showMessageDialog(null, "Login failed");
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Login successful");
                     frame.dispose();
                     Check_up_panel.main(idp);
                 }
