@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main_panel {
+public class Login_panel {
     private JButton button1;
     private JPanel panel1;
     private JLabel label1;
@@ -11,7 +11,7 @@ public class Main_panel {
     private static JFrame frame;
 
 
-    public Main_panel() {
+    public Login_panel() {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -21,10 +21,10 @@ public class Main_panel {
                 int idp = dbconnect.returncompanyid(mail, pass);
 
                 if(idp == 0) {
-                    System.out.println("Nedela");
+                    JOptionPane.showMessageDialog(null, "Login failed");
                 }
                 else {
-                    System.out.println("Dela");
+                    JOptionPane.showMessageDialog(null, "Login successful");
                     frame.dispose();
                     Check_up_panel.main(idp);
                 }
@@ -35,7 +35,7 @@ public class Main_panel {
 
     public static void main(String[] args) {
         frame = new JFrame("Frame");
-        frame.setContentPane(new Main_panel().panel1);
+        frame.setContentPane(new Login_panel().panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setSize(500,600);
