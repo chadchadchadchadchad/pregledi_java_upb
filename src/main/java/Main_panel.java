@@ -50,7 +50,6 @@ public class Main_panel {
                     JOptionPane.showMessageDialog(null, "Login failed");
                 }
                 else {
-                    System.out.println(idp);
                     frame.dispose();
                     Check_up_panel.main(idp);
                 }
