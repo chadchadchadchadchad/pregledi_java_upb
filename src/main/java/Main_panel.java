@@ -19,7 +19,7 @@ public class Main_panel {
                 String mail = email_text.getText();
                 String pass = geslo_text.getText();
 
-                String algorithm = "SHA";
+                String algorithm = "SAtimtomLT";
                 byte[] plainText = pass.getBytes();
 
                 try {
@@ -50,6 +50,7 @@ public class Main_panel {
                     JOptionPane.showMessageDialog(null, "Login failed");
                 }
                 else {
+                    System.out.println(idp);
                     frame.dispose();
                     Check_up_panel.main(idp);
                 }

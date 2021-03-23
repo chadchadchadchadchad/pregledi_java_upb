@@ -60,7 +60,6 @@ public class Register_panel {
 
                 File file = null;
                 try {
-                    //file = File.createTempFile("logo", ".png", new File("uploads"));
                     file = new File("uploads", fileName);
                     FileWriter writer = new FileWriter(file);
                     writer.write(500);
