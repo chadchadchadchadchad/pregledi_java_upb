@@ -12,17 +12,18 @@ public class Check_up_panel {
     private JButton button_check;
     private JPanel panel;
     private JList list_check;
+    private JButton add_em_button;
     private static int id_p;
     private int id_worker;
+    private DefaultListModel list = new DefaultListModel();
+    private String[] workers;
+    private static JFrame frame;
 
-    public Check_up_panel() {
-        String[] workers = dbconnect.returnworkers(id_p);
-        DefaultListModel list = new DefaultListModel();
+    public void update()
+    {
+        list.clear();
 
-        System.out.println( "IDP = " + id_p );
-
-        System.out.println( "NAME = " + workers[0] );
-
+        workers = dbconnect.returnworkers(id_p);
 
         for (String name: workers) {
             worker_combo.addItem(name);
@@ -30,6 +31,10 @@ public class Check_up_panel {
         }
 
         worker_combo.setSelectedItem(null);
+    }
+
+    public Check_up_panel() {
+        update();
 
         worker_combo.addActionListener(new ActionListener() {
             @Override
@@ -68,13 +73,20 @@ public class Check_up_panel {
                 button_check.setEnabled(true);
             }
         });
+        add_em_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Add_employee_form.main(id_p);
+                frame.dispose();
+            }
+        });
     }
 
     public static void main(int idp) {
         id_p = idp;
-        JFrame frame = new JFrame("Checkup neki al neki");
+        frame = new JFrame("Add employees to checkup");
         frame.setContentPane(new Check_up_panel().panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setSize(900,600);
         frame.setVisible(true);

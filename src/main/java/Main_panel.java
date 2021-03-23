@@ -32,7 +32,7 @@ public class Main_panel {
     }
 
     public static void main(String[] args) {
-        frame = new JFrame("Frame");
+        frame = new JFrame("Login");
         frame.setContentPane(new Main_panel().panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
