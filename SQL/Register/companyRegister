@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION companyRegister(cName varchar, cEmail varchar, pass varchar, cLogo text) RETURNS VOID AS
+$$
+BEGIN
+
+    INSERT INTO podjetja(ime, email, geslo, logo)
+    VALUES (cName, cEmail, pass, cLogo);
+
+
+END;
+$$ LANGUAGE 'plpgsql';
