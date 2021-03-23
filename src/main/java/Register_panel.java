@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Register_panel {
     private JTextField name_text;
@@ -37,15 +41,39 @@ public class Register_panel {
                 fc.showOpenDialog(fc);
 
                 String path = fc.getSelectedFile().getPath();
-                ImageIcon icon = new ImageIcon(path);
 
                 ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 
+
+                String fileName = fc.getSelectedFile().getName();
+                System.out.println(fileName);
+
+                BufferedImage bi = new BufferedImage(
+                        imageIcon.getIconWidth(),
+                        imageIcon.getIconHeight(),
+                        BufferedImage.TYPE_INT_ARGB);
+                Graphics g = bi.createGraphics();
+                // paint the Icon to the BufferedImage.
+                imageIcon.paintIcon(null, g, 0,0);
+                g.dispose();
+
+
+                File file = null;
+                try {
+                    //file = File.createTempFile("logo", ".png", new File("uploads"));
+                    file = new File("uploads", fileName);
+                    FileWriter writer = new FileWriter(file);
+                    writer.write(500);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                try {
+                    ImageIO.write(bi, "png", file);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
                 logo_label.setIcon(imageIcon);
-
-                System.out.println(fc);
-
-                fc.toString();
 
             }
         });
