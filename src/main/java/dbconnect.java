@@ -10,7 +10,7 @@ public class dbconnect {
         String ime = "";
         try {
             String uName = "rwnxlyblnkntlj";
-            String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
+            String uPass = "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
             String host = "jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d89q761es01jua";
 
             Class.forName("org.postgresql.Driver");
@@ -42,7 +42,7 @@ public class dbconnect {
         String[] names = {""};
         try {
             String uName = "rwnxlyblnkntlj";
-            String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
+            String uPass = "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
             String host = "jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d89q761es01jua";
 
             Class.forName("org.postgresql.Driver");
@@ -82,7 +82,7 @@ public class dbconnect {
         int id = 0;
         try {
             String uName = "rwnxlyblnkntlj";
-            String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
+            String uPass = "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
             String host = "jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d89q761es01jua";
 
             Class.forName("org.postgresql.Driver");
@@ -114,7 +114,7 @@ public class dbconnect {
         int id = 0;
         try {
             String uName = "rwnxlyblnkntlj";
-            String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
+            String uPass = "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
             String host = "jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d89q761es01jua";
 
             Class.forName("org.postgresql.Driver");

@@ -44,8 +44,6 @@ public class Main_panel {
                     f.printStackTrace();
                 }
 
-
-
                 int idp = dbconnect.returncompanyid(mail, pass);
 
                 if(idp == 0) {
