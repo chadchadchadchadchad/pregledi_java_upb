@@ -34,8 +34,7 @@ public class Add_employee_form {
                 String nameofemployee = name_text.getText();
                 String surnameofemployee = surname_text.getText();
 
-                if(nameofemployee == "" || surnameofemployee == "")
-                {
+                if(nameofemployee.isBlank() || surnameofemployee.isBlank()) {
                     JOptionPane.showMessageDialog(null, "Employee not added, please enter name and surname");
                 }
 
