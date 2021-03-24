@@ -31,19 +31,27 @@ public class Add_employee_form {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(town_combo.getSelectedItem().toString());
+                String nameofemployee = name_text.getText();
+                String surnameofemployee = surname_text.getText();
 
-                id_k = dbconnect.return_town_id(town_combo.getSelectedItem().toString());
-
-                int id_e = dbconnect.insert_employee(name_text.getText(), surname_text.getText(), mobile_text.getText(), email_text.getText(), date_text.getText(), address_text.getText(), id_k, id_p);
-                if(id_e != 0) {
-                    JOptionPane.showMessageDialog(null, "Employee added");
-
-                    Check_up_panel.main(id_p);
-
-                    frame.dispose();
+                if(nameofemployee.isBlank() || surnameofemployee.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Employee not added, please enter name and surname");
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "Employee not added, try again");
+
+                else {
+                    id_k = dbconnect.return_town_id(town_combo.getSelectedItem().toString());
+
+                    int id_e = dbconnect.insert_employee(name_text.getText(), surname_text.getText(), mobile_text.getText(), email_text.getText(), date_text.getText(), address_text.getText(), id_k, id_p);
+                    if (id_e != 0) {
+                        JOptionPane.showMessageDialog(null, "Employee added");
+
+                        Check_up_panel.main(id_p);
+
+                        frame.dispose();
+                    } else
+                        JOptionPane.showMessageDialog(null, "Employee not added, try again");
+                }
+
             }
         });
     }
