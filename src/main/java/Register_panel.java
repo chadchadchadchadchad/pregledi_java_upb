@@ -133,7 +133,7 @@ public class Register_panel {
     }
 
 
-    public static void main(String[] args) {
+    public static void main() {
         frame = new JFrame("Frame");
         frame.setContentPane(new Register_panel().panelReg);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

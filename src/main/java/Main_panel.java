@@ -9,6 +9,7 @@ public class Main_panel {
     private JLabel label1;
     private JTextField email_text;
     private JTextField geslo_text;
+    private JButton register_show;
     private static JFrame frame;
 
 
@@ -30,6 +31,13 @@ public class Main_panel {
                     frame.dispose();
                     Check_up_panel.main(idp);
                 }
+            }
+        });
+        register_show.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Register_panel.main();
+                frame.dispose();
             }
         });
     }
