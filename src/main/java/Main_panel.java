@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
 
 public class Main_panel {
     private JButton button1;
@@ -18,6 +19,8 @@ public class Main_panel {
                 String mail = email_text.getText();
                 String pass = geslo_text.getText();
 
+                pass = getString(pass);
+
                 int idp = dbconnect.returncompanyid(mail, pass);
 
                 if(idp == 0) {
@@ -29,6 +32,33 @@ public class Main_panel {
                 }
             }
         });
+    }
+
+    private String getString(String pass) {
+        String algorithm = "SHA1";
+        byte[] plainText = pass.getBytes();
+
+        try {
+            MessageDigest md = MessageDigest.getInstance(algorithm);
+
+            md.reset();
+            md.update(plainText);
+            byte[] encodedPassword = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < encodedPassword.length; i++) {
+                if ((encodedPassword[i] & 0xff) < 0x10) {
+                    sb.append("0");
+                }
+
+                sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+            }
+            pass = sb.toString();
+
+        } catch (Exception f) {
+            f.printStackTrace();
+        }
+        return pass;
     }
 
     public static void main(String[] args) {
