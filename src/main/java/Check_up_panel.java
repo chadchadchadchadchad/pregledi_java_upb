@@ -23,7 +23,7 @@ public class Check_up_panel {
     {
         list.clear();
 
-        workers = dbconnect.returnworkers(id_p);
+        workers = database_check_up_panel.returnworkers(id_p);
 
         for (String name: workers) {
             worker_combo.addItem(name);
@@ -44,7 +44,7 @@ public class Check_up_panel {
 
                 String[]name_surname = name.split(" ");
 
-                id_worker = dbconnect.returnworkerid(name_surname[0], name_surname[1], id_p);
+                id_worker = database_check_up_panel.returnworkerid(name_surname[0], name_surname[1], id_p);
                 System.out.println("ID: " + id_worker);
 
                 healthcenter_list.setModel(list);

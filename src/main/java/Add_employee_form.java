@@ -21,7 +21,7 @@ public class Add_employee_form {
     private static JFrame frame;
 
     public Add_employee_form() {
-        String[] town_names = dbconnect.returntowns();
+        String[] town_names = database_addemployee.returntowns();
 
         for (String town: town_names){
             town_combo.addItem(town);
@@ -34,7 +34,7 @@ public class Add_employee_form {
 
                 id_k = dbconnect.return_town_id(town_combo.getSelectedItem().toString());
 
-                int id_e = dbconnect.insert_employee(name_text.getText(), surname_text.getText(), mobile_text.getText(), email_text.getText(), date_text.getText(), address_text.getText(), id_k, id_p);
+                int id_e = database_addemployee.insert_employee(name_text.getText(), surname_text.getText(), mobile_text.getText(), email_text.getText(), date_text.getText(), address_text.getText(), id_k, id_p);
                 if(id_e != 0) {
                     JOptionPane.showMessageDialog(null, "Employee added");
 
