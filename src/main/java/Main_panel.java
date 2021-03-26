@@ -19,32 +19,10 @@ public class Main_panel {
                 String mail = email_text.getText();
                 String pass = geslo_text.getText();
 
-                String algorithm = "SAtimtomLT";
-                byte[] plainText = pass.getBytes();
-
-                try {
-                    MessageDigest md = MessageDigest.getInstance(algorithm);
-
-                    md.reset();
-                    md.update(plainText);
-                    byte[] encodedPassword = md.digest();
-
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < encodedPassword.length; i++) {
-                        if ((encodedPassword[i] & 0xff) < 0x10) {
-                            sb.append("0");
-                        }
-
-                        sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
-                    }
-
-                    System.out.println("Plain    : " + pass);
-                    System.out.println("Encrypted: " + sb.toString());
-                } catch (Exception f) {
-                    f.printStackTrace();
-                }
+                pass = getString(pass);
 
                 int idp = dbconnect.returncompanyid(mail, pass);
+                System.out.println(pass);
 
                 if(idp == 0) {
                     JOptionPane.showMessageDialog(null, "Login failed");
@@ -55,6 +33,33 @@ public class Main_panel {
                 }
             }
         });
+    }
+
+    private String getString(String pass) {
+        String algorithm = "SHA1";
+        byte[] plainText = pass.getBytes();
+
+        try {
+            MessageDigest md = MessageDigest.getInstance(algorithm);
+
+            md.reset();
+            md.update(plainText);
+            byte[] encodedPassword = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < encodedPassword.length; i++) {
+                if ((encodedPassword[i] & 0xff) < 0x10) {
+                    sb.append("0");
+                }
+
+                sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+            }
+            pass = sb.toString();
+
+        } catch (Exception f) {
+            f.printStackTrace();
+        }
+        return pass;
     }
 
     public static void main(String[] args) {

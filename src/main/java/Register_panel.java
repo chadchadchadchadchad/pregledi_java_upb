@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.MessageDigest;
 
 public class Register_panel {
     private JTextField name_text;
@@ -19,17 +20,33 @@ public class Register_panel {
     private JPanel panelReg;
     private JLabel logo_label;
 
+    public String fileName = "";
 
     public Register_panel() {
         register_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = name_text.toString();
-                String email = email_text.toString();
-                String pass = pass_text.toString();
-                String appPass = app_pass_text.toString();
+                String name = name_text.getText();
+                String email = email_text.getText();
+                String pass = pass_text.getText();
+                String appPass = app_pass_text.getText();
+                String olpas = pass;
+
+                pass = getString(pass);
+
+                if (olpas.equals(appPass)) {
+                    dbconnect.registerCompany(name, email, pass, fileName);
+                    frame.dispose();
+                    Main_panel.main(new String[] { "a", "b" });
+                }
+
+                else {
+                    JOptionPane.showMessageDialog(null, "Passwords do not match. ");
+
+                }
 
             }
+
         });
         add_logo_button.addActionListener(new ActionListener() {
             @Override
@@ -45,8 +62,7 @@ public class Register_panel {
                 ImageIcon imageIcon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 
 
-                String fileName = fc.getSelectedFile().getName();
-                System.out.println(fileName);
+                fileName = fc.getSelectedFile().getName();
 
                 BufferedImage bi = new BufferedImage(
                         imageIcon.getIconWidth(),
@@ -76,6 +92,34 @@ public class Register_panel {
 
             }
         });
+
+    }
+
+    private String getString(String pass) {
+        String algorithm = "SHA1";
+        byte[] plainText = pass.getBytes();
+
+        try {
+            MessageDigest md = MessageDigest.getInstance(algorithm);
+
+            md.reset();
+            md.update(plainText);
+            byte[] encodedPassword = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < encodedPassword.length; i++) {
+                if ((encodedPassword[i] & 0xff) < 0x10) {
+                    sb.append("0");
+                }
+
+                sb.append(Long.toString(encodedPassword[i] & 0xff, 16));
+            }
+
+            pass = sb.toString();
+        } catch (Exception f) {
+            f.printStackTrace();
+        }
+        return pass;
     }
 
 
