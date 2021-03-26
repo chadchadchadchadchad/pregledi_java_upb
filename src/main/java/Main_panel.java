@@ -22,7 +22,6 @@ public class Main_panel {
                 pass = getString(pass);
 
                 int idp = dbconnect.returncompanyid(mail, pass);
-                System.out.println(pass);
 
                 if(idp == 0) {
                     JOptionPane.showMessageDialog(null, "Login failed");

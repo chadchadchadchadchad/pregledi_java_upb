@@ -12,17 +12,25 @@ import java.security.MessageDigest;
 public class Register_panel {
     private JTextField name_text;
     private JTextField email_text;
-    private JTextField pass_text;
-    private JTextField app_pass_text;
     private JButton register_button;
     private JButton add_logo_button;
     private static JFrame frame;
     private JPanel panelReg;
     private JLabel logo_label;
+    private JComboBox company_box;
+    private JPasswordField pass_text;
+    private JPasswordField app_pass_text;
 
     public String fileName = "";
 
+
     public Register_panel() {
+            String[] town_names = database_addemployee.returntowns();
+
+            for (String town: town_names){
+                company_box.addItem(town);
+            }
+            company_box.setSelectedItem(null);
         register_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,18 +38,20 @@ public class Register_panel {
                 String email = email_text.getText();
                 String pass = pass_text.getText();
                 String appPass = app_pass_text.getText();
+                String place = company_box.getToolTipText();
                 String olpas = pass;
 
                 pass = getString(pass);
 
-                if (olpas.equals(appPass)) {
-                    dbconnect.registerCompany(name, email, pass, fileName);
+                if (olpas.equals(appPass) && name.isBlank() == false && email.isBlank() == false && pass.isBlank() == false) {
+                    database_registration.registerCompany(name, email, pass, fileName);
                     frame.dispose();
                     Main_panel.main(new String[] { "a", "b" });
                 }
 
                 else {
-                    JOptionPane.showMessageDialog(null, "Passwords do not match. ");
+                    JOptionPane.showMessageDialog(null, "Please re-check your credentials");
+                    JOptionPane.showMessageDialog(null, place);
 
                 }
 
