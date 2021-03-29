@@ -17,6 +17,7 @@ public class Check_up_panel {
     private int id_worker;
     private DefaultListModel list = new DefaultListModel();
     private String[] workers;
+    private String[] healthcenters;
     private static JFrame frame;
 
     public void update()
@@ -24,9 +25,13 @@ public class Check_up_panel {
         list.clear();
 
         workers = database_check_up_panel.returnworkers(id_p);
+        healthcenters = database_check_up_panel.returnhealhcenters();
 
         for (String name: workers) {
             worker_combo.addItem(name);
+        }
+
+        for (String name: healthcenters) {
             list.addElement(name);
         }
 
