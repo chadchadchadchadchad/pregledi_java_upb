@@ -8,11 +8,6 @@
     <properties/>
     <border type="none"/>
     <children>
-      <hspacer id="b4a8f">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
       <component id="dfcac" class="javax.swing.JButton" binding="button_check">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -80,21 +75,25 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <enabled value="true"/>
+        </properties>
       </component>
       <component id="f5faf" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Choose a date:"/>
+          <text value="Choose a date(yyyy-mm-dd):"/>
         </properties>
       </component>
       <component id="98a73" class="javax.swing.JComboBox" binding="doctor_combo">
         <constraints>
           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <enabled value="false"/>
+        </properties>
       </component>
       <component id="c907f" class="javax.swing.JLabel">
         <constraints>
@@ -104,6 +103,11 @@
           <text value="Choose a doctor:"/>
         </properties>
       </component>
+      <hspacer id="b4a8f">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>
