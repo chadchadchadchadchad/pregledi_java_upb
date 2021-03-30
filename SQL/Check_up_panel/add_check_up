@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION add_check_up(datee varchar, zd_id int, doc_id int, del_id int) 
+RETURNS VOID AS
+$$
+DECLARE
+    date_new timestamp;
+BEGIN
+    SELECT INTO date_new TO_TIMESTAMP(datee, 'yyyy-mm-dd');
+
+    INSERT INTO pregledi(datum_pregleda, zdravstveni_dom_id, delavec_id, zdravnik_id)
+    VALUES (date_new, zd_id, del_id, doc_id);
+END;
+$$ LANGUAGE 'plpgsql';
