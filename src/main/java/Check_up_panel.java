@@ -22,11 +22,11 @@ public class Check_up_panel {
     private String[] healthcenters;
     private String[] doctors;
     private static JFrame frame;
+    private int st = 0;
 
     public void update()
     {
         worker_combo.removeAllItems();
-        list.clear();
 
         workers = database_check_up_panel.returnworkers(id_p);
 
@@ -36,11 +36,18 @@ public class Check_up_panel {
             worker_combo.addItem(name);
         }
 
+        worker_combo.setSelectedItem(null);
+
+        update_list();
+    }
+
+    public void update_list()
+    {
+        list.removeAllElements();
+
         for (String name: healthcenters) {
             list.addElement(name);
         }
-
-        worker_combo.setSelectedItem(null);
     }
 
     public Check_up_panel() {
@@ -50,6 +57,7 @@ public class Check_up_panel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 healthcenter_list.setEnabled(true);
+                update_list();
                 String name = workers[worker_combo.getSelectedIndex()];
 
                 String[]name_surname = name.split(" ");
@@ -58,37 +66,50 @@ public class Check_up_panel {
                 System.out.println("ID: " + id_worker);
 
                 healthcenter_list.setModel(list);
+                st = 0;
             }
         });
 
         button_check.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(date_text.getText().isBlank() == false) {
+                    database_check_up_panel.add_to_checkups(date_text.getText(), id_zd, id_doc, id_worker);
 
+                    date_text.setText("");
+                    button_check.setEnabled(false);
+                    healthcenter_list.setEnabled(false);
+                    healthcenter_list.clearSelection();
 
-                button_check.setEnabled(false);
-                healthcenter_list.setEnabled(false);
-                doctor_combo.setEnabled(false);
-                doctor_combo.setSelectedItem(null);
-                worker_combo.setSelectedItem(null);
-                doctor_combo.removeAllItems();
+                    doctor_combo.setEnabled(false);
+
+                    doctor_combo.removeAllItems();
+
+                    JOptionPane.showMessageDialog(null, "Check up added");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Date not in correct format");
             }
         });
         healthcenter_list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 //doctor_combo.removeAllItems();
+                if(healthcenter_list.isSelectionEmpty() == false) {
+                    id_zd = database_check_up_panel.returnzdid(healthcenter_list.getSelectedValue().toString());
+                    doctors = database_check_up_panel.returndoctors(id_zd);
 
-                id_zd = database_check_up_panel.returnzdid(healthcenter_list.getSelectedValue().toString());
-                doctors = database_check_up_panel.returndoctors(id_zd);
+                    System.out.println(doctors[0]);
 
-                System.out.println(doctors[0]);
+                    if (st == 0) {
+                        for (String d_name : doctors) {
+                            doctor_combo.addItem(d_name);
+                        }
 
-                for (String d_name: doctors) {
-                    doctor_combo.addItem(d_name);
+                        doctor_combo.setEnabled(true);
+                        st++;
+                    }
                 }
-
-                doctor_combo.setEnabled(true);
             }
         });
         add_em_button.addActionListener(new ActionListener() {
@@ -101,13 +122,15 @@ public class Check_up_panel {
         doctor_combo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = doctors[doctor_combo.getSelectedIndex()];
+                if(doctor_combo.isEnabled()) {
+                    String name = doctors[doctor_combo.getSelectedIndex()];
 
-                String[]name_surname = name.split(" ");
+                    String[] name_surname = name.split(" ");
 
-                id_doc = database_check_up_panel.returndoctorid(name_surname[0], name_surname[1], id_zd);
+                    id_doc = database_check_up_panel.returndoctorid(name_surname[0], name_surname[1], id_zd);
 
-                button_check.setEnabled(true);
+                    button_check.setEnabled(true);
+                }
             }
         });
     }
