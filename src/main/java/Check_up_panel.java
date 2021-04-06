@@ -14,6 +14,10 @@ public class Check_up_panel {
     private JTextField date_text;
     private JComboBox doctor_combo;
     private JTabbedPane tabbed_page;
+    private JList check_combo;
+    private JComboBox employee_combo;
+    private JButton remove_check;
+    private JButton edit_check;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -28,6 +32,7 @@ public class Check_up_panel {
     public void update()
     {
         worker_combo.removeAllItems();
+        employee_combo.removeAllItems();
 
         workers = database_check_up_panel.returnworkers(id_p);
 
@@ -35,9 +40,11 @@ public class Check_up_panel {
 
         for (String name: workers) {
             worker_combo.addItem(name);
+            employee_combo.addItem(name);
         }
 
         worker_combo.setSelectedItem(null);
+        employee_combo.setSelectedItem(null);
 
         update_list();
     }
