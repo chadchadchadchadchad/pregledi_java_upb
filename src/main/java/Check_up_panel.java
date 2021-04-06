@@ -13,6 +13,7 @@ public class Check_up_panel {
     private JButton add_em_button;
     private JTextField date_text;
     private JComboBox doctor_combo;
+    private JTabbedPane tabbed_page;
     private static int id_p;
     private int id_worker;
     private int id_zd;
