@@ -14,7 +14,7 @@ public class Check_up_panel {
     private JTextField date_text;
     private JComboBox doctor_combo;
     private JTabbedPane tabbed_page;
-    private JList check_combo;
+    private JList check_list;
     private JComboBox employee_combo;
     private JButton remove_check;
     private JButton edit_check;
@@ -23,8 +23,10 @@ public class Check_up_panel {
     private int id_zd;
     private int id_doc;
     private DefaultListModel list = new DefaultListModel();
+    private DefaultListModel list_checkups = new DefaultListModel();
     private String[] workers;
     private String[] healthcenters;
+    private String[] checkups;
     private String[] doctors;
     private static JFrame frame;
     private int st = 0;
@@ -55,6 +57,15 @@ public class Check_up_panel {
 
         for (String name: healthcenters) {
             list.addElement(name);
+        }
+    }
+
+    public void update_list_check()
+    {
+        list_checkups.removeAllElements();
+
+        for (String name: checkups) {
+            list_checkups.addElement(name);
         }
     }
 
@@ -139,6 +150,29 @@ public class Check_up_panel {
 
                     button_check.setEnabled(true);
                 }
+            }
+        });
+        check_list.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                edit_check.setEnabled(true);
+                remove_check.setEnabled(true);
+            }
+        });
+        employee_combo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = workers[employee_combo.getSelectedIndex()];
+
+                String[]name_surname = name.split(" ");
+
+                id_worker = database_check_up_panel.returnworkerid(name_surname[0], name_surname[1], id_p);
+
+                checkups = database_checkcheckup.returncheckups(id_worker);
+
+                update_list_check();
+
+                check_list.setModel(list_checkups);
             }
         });
     }
