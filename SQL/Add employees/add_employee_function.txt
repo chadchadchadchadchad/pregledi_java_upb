@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION add_employee(namee varchar, surname varchar, phone varchar, email varchar, datee varchar, address varchar, id_k int, id_p int) 
+RETURNS INTEGER AS
+$$
+DECLARE
+    id_employee int;
+	date_new timestamp;
+BEGIN
+    id_employee := 0;
+
+    SELECT INTO date_new TO_TIMESTAMP(datee, 'yyyy-mm-dd');
+
+    INSERT INTO delavci(ime, priimek, naslov, telefon, email, datum_roj, kraj_id, podjetje_id)
+    VALUES (namee, surname, address, phone, email, date_new, id_k, id_p);
+
+	SELECT INTO id_employee id
+    FROM delavci 
+    WHERE ime = namee AND priimek = surname AND naslov = address;
+
+    RETURN id_employee;
+END;
+$$ LANGUAGE 'plpgsql';
