@@ -1,7 +1,11 @@
 CREATE OR REPLACE FUNCTION edit_employee(id_e int, name_e varchar, lastname_e varchar, mobile_e varchar, email_e varchar, date_e varchar, adress_e varchar, town_e varchar)
 RETURNS VOID AS
 $$
+DECLARE
+    
+	date_new timestamp;
 BEGIN
+	SELECT INTO date_new TO_TIMESTAMP(date_e, 'yyyy-mm-dd');
 
 	UPDATE delavci
 	SET ime = name_e, priimek = lastname_e, naslov = adress_e, telefon = mobile_e,
@@ -10,4 +14,3 @@ BEGIN
 	
 END;
 $$ LANGUAGE 'plpgsql';
-										 
