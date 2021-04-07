@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION remove_employee(id_e int)
+RETURNS VOID AS
+$$
+BEGIN
+	
+	DELETE FROM pregledi
+	WHERE delavec_id = id_e;
+	
+	DELETE FROM delavci
+	WHERE id = id_e;
+
+END;
+$$ LANGUAGE 'plpgsql';
