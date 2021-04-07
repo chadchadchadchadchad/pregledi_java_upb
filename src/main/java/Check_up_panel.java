@@ -14,6 +14,8 @@ public class Check_up_panel {
     private JTextField date_text;
     private JComboBox doctor_combo;
     private JTabbedPane tabbed_page;
+    private JButton emp_settings_button;
+    private JTextField textField1;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -24,6 +26,10 @@ public class Check_up_panel {
     private String[] doctors;
     private static JFrame frame;
     private int st = 0;
+
+
+
+
 
     public void update()
     {
@@ -64,9 +70,12 @@ public class Check_up_panel {
                 String[]name_surname = name.split(" ");
 
                 id_worker = database_check_up_panel.returnworkerid(name_surname[0], name_surname[1], id_p);
+                System.out.println("NAME: " + name_surname[0]);
+                System.out.println("SURNAME: " + name_surname[1]);
                 System.out.println("ID: " + id_worker);
 
                 healthcenter_list.setModel(list);
+                emp_settings_button.setEnabled(true);
                 st = 0;
             }
         });
@@ -79,12 +88,15 @@ public class Check_up_panel {
 
                     date_text.setText("");
                     button_check.setEnabled(false);
+                    emp_settings_button.setEnabled(false);
                     healthcenter_list.setEnabled(false);
                     healthcenter_list.clearSelection();
 
                     doctor_combo.setEnabled(false);
 
                     doctor_combo.removeAllItems();
+
+
 
                     JOptionPane.showMessageDialog(null, "Check up added");
                 }
@@ -108,6 +120,7 @@ public class Check_up_panel {
                         }
 
                         doctor_combo.setEnabled(true);
+
                         st++;
                     }
                 }
@@ -131,7 +144,16 @@ public class Check_up_panel {
                     id_doc = database_check_up_panel.returndoctorid(name_surname[0], name_surname[1], id_zd);
 
                     button_check.setEnabled(true);
+
+                    System.out.println("ID ZA NAPREJ: " + id_worker);
                 }
+            }
+        });
+        emp_settings_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Employee_Settings_Panel.main(id_worker, id_p);
+                frame.dispose();
             }
         });
     }
