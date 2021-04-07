@@ -9,7 +9,7 @@ BEGIN
 
 	UPDATE delavci
 	SET ime = name_e, priimek = lastname_e, naslov = adress_e, telefon = mobile_e,
-	email = email_e, datum_roj = date_e, kraj_id = (SELECT id FROM kraji WHERE ime = town_e)
+	email = email_e, datum_roj = date_new, kraj_id = (SELECT id FROM kraji WHERE ime = town_e)
 	WHERE id = id_e;
 	
 END;
