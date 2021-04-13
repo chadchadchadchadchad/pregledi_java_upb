@@ -18,6 +18,7 @@ public class Check_up_panel {
     private JComboBox employee_combo;
     private JButton remove_check;
     private JButton edit_check;
+    private JButton emp_sett_button;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -76,6 +77,8 @@ public class Check_up_panel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 healthcenter_list.setEnabled(true);
+                emp_sett_button.setEnabled(true);
+
                 update_list();
                 String name = workers[worker_combo.getSelectedIndex()];
 
@@ -173,6 +176,13 @@ public class Check_up_panel {
                 update_list_check();
 
                 check_list.setModel(list_checkups);
+            }
+        });
+        emp_sett_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Employee_Settings_Panel.main(id_worker, id_p);
+                frame.dispose();
             }
         });
     }
