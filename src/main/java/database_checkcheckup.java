@@ -28,7 +28,7 @@ public class database_checkcheckup {
             stmt.close();
 
             Statement stmt2 = c.createStatement();
-            ResultSet rs2 = stmt2.executeQuery( "SELECT p.id, p.datum_pregleda, zd.ime, doc.ime, doc.priimek FROM pregledi p INNER JOIN zdravstveni_domovi zd ON zd.id = p.zdravstveni_dom_id INNER JOIN zdravniki doc ON doc.id = p.zdravnik_id WHERE delavec_id = "+ em_id +";" );
+            ResultSet rs2 = stmt2.executeQuery( "SELECT p.id, p.datum_pregleda, zd.ime, doc.ime, doc.priimek, p.zdravnik_id, p.zdravstveni_dom_id FROM pregledi p INNER JOIN zdravstveni_domovi zd ON zd.id = p.zdravstveni_dom_id INNER JOIN zdravniki doc ON doc.id = p.zdravnik_id WHERE delavec_id = "+ em_id +";" );
 
             names = new checkups[st];
 
@@ -39,7 +39,10 @@ public class database_checkcheckup {
                 a.id = rs2.getInt(1);
                 String datum = rs2.getString("datum_pregleda");
                 a.Zd_name = rs2.getString(3);
-                a.Doc_name = rs2.getString(3) + " " + rs2.getString(4);
+                a.Doc_name = rs2.getString(4) + " " + rs2.getString(5);
+                a.Doc_id = rs2.getInt(6);
+                a.Zd_id = rs2.getInt(7);
+                a.Emp_id = em_id;
 
                 String[] novdatum = datum.split(" ");
                 a.Datum_pregleda = novdatum[0];
