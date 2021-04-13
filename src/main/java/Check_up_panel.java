@@ -181,6 +181,22 @@ public class Check_up_panel {
                 frame.dispose();
             }
         });
+        remove_check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int checkid = checkups_list[check_list.getSelectedIndex()].id;
+
+                database_checkcheckup.delete_checkup(checkid);
+
+                checkups_list = database_checkcheckup.returncheckups(id_worker);
+
+                update_list_check();
+
+                check_list.setModel(list_checkups);
+
+                JOptionPane.showMessageDialog(null, "Check up removed");
+            }
+        });
     }
 
     public static void main(int idp) {
