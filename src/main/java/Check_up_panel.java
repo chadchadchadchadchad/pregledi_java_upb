@@ -25,9 +25,9 @@ public class Check_up_panel {
     private int id_doc;
     private DefaultListModel list = new DefaultListModel();
     private DefaultListModel list_checkups = new DefaultListModel();
-    private String[] workers;
+    private employees[] workers;
     private String[] healthcenters;
-    private String[] checkups;
+    private checkups[] checkups_list;
     private String[] doctors;
     private static JFrame frame;
     private int st = 0;
@@ -41,7 +41,9 @@ public class Check_up_panel {
 
         healthcenters = database_check_up_panel.returnhealhcenters();
 
-        for (String name: workers) {
+        for (employees emp: workers) {
+            String name = emp.Name + " " + emp.Lastname;
+
             worker_combo.addItem(name);
             employee_combo.addItem(name);
         }
@@ -65,7 +67,8 @@ public class Check_up_panel {
     {
         list_checkups.removeAllElements();
 
-        for (String name: checkups) {
+        for (checkups a: checkups_list) {
+            String name = "Datum: " + a.Datum_pregleda + " Zdravstveni dom: " + a.Zd_name + " Zdravnik: " + a.Doc_name;
             list_checkups.addElement(name);
         }
     }
@@ -80,11 +83,8 @@ public class Check_up_panel {
                 emp_sett_button.setEnabled(true);
 
                 update_list();
-                String name = workers[worker_combo.getSelectedIndex()];
+                id_worker = workers[worker_combo.getSelectedIndex()].id;
 
-                String[]name_surname = name.split(" ");
-
-                id_worker = database_check_up_panel.returnworkerid(name_surname[0], name_surname[1], id_p);
                 System.out.println("ID: " + id_worker);
 
                 healthcenter_list.setModel(list);
@@ -165,13 +165,9 @@ public class Check_up_panel {
         employee_combo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = workers[employee_combo.getSelectedIndex()];
+                id_worker = workers[employee_combo.getSelectedIndex()].id;
 
-                String[]name_surname = name.split(" ");
-
-                id_worker = database_check_up_panel.returnworkerid(name_surname[0], name_surname[1], id_p);
-
-                checkups = database_checkcheckup.returncheckups(id_worker);
+                checkups_list = database_checkcheckup.returncheckups(id_worker);
 
                 update_list_check();
 

@@ -5,9 +5,9 @@ import java.sql.Statement;
 
 public class database_checkcheckup {
 
-    public static String[] returncheckups(int em_id)
+    public static checkups[] returncheckups(int em_id)
     {
-        String[] names = new String[1];
+        checkups[] names = new checkups[1];
         try {
             String uName = "rwnxlyblnkntlj";
             String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
@@ -28,22 +28,23 @@ public class database_checkcheckup {
             stmt.close();
 
             Statement stmt2 = c.createStatement();
-            ResultSet rs2 = stmt2.executeQuery( "SELECT p.datum_pregleda, zd.ime, doc.ime, doc. priimek FROM pregledi p INNER JOIN zdravstveni_domovi zd ON zd.id = p.zdravstveni_dom_id INNER JOIN zdravniki doc ON doc.id = p.zdravnik_id WHERE delavec_id = "+ em_id +";" );
+            ResultSet rs2 = stmt2.executeQuery( "SELECT p.id, p.datum_pregleda, zd.ime, doc.ime, doc.priimek FROM pregledi p INNER JOIN zdravstveni_domovi zd ON zd.id = p.zdravstveni_dom_id INNER JOIN zdravniki doc ON doc.id = p.zdravnik_id WHERE delavec_id = "+ em_id +";" );
 
-            names = new String[st];
+            names = new checkups[st];
 
             int st2 = 0;
             while ( rs2.next() ) {
+                checkups a = new checkups();
+
+                a.id = rs2.getInt(1);
                 String datum = rs2.getString("datum_pregleda");
-                String zd_dom = rs2.getString(2);
-                String doc_ime = rs2.getString(3);
-                String doc_priimek = rs2.getString(4);
+                a.Zd_name = rs2.getString(3);
+                a.Doc_name = rs2.getString(3) + " " + rs2.getString(4);
 
                 String[] novdatum = datum.split(" ");
+                a.Datum_pregleda = novdatum[0];
 
-                String full = "Datum: " + novdatum[0] + " Zdravstveni dom: " + zd_dom + " Ime zdravnika: " + doc_ime + " " + doc_priimek;
-
-                names[st2] = full;
+                names[st2] = a;
 
                 st2++;
             }

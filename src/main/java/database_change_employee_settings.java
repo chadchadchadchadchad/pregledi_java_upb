@@ -30,7 +30,7 @@ public class database_change_employee_settings {
             while ( rs.next() ) {
                 employee.Name = rs.getString(1);
                 employee.Lastname = rs.getString(2);
-                employee.Adress = rs.getString(3);
+                employee.Address = rs.getString(3);
                 employee.PhoneNumber = rs.getString(4);
                 employee.Email = rs.getString(5);
                 String date = rs.getString(6);

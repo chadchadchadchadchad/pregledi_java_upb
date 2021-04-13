@@ -65,7 +65,7 @@ public class Employee_Settings_Panel {
                     mobile_text.setText(employee.PhoneNumber);
                     email_text.setText(employee.Email);
                     date_text.setText(employee.DateOfBirth);
-                    address_text.setText(employee.Adress);
+                    address_text.setText(employee.Address);
                     town_combo.setSelectedItem(employee.City);
 
                 }
@@ -81,7 +81,7 @@ public class Employee_Settings_Panel {
         save_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                database_change_employee_settings.updateworkers(id_k, employee.Name, employee.Lastname, employee.Adress, employee.PhoneNumber,
+                database_change_employee_settings.updateworkers(id_k, employee.Name, employee.Lastname, employee.Address, employee.PhoneNumber,
                         employee.Email, employee.DateOfBirth, employee.City);
             }
         });
