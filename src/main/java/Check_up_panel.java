@@ -19,6 +19,7 @@ public class Check_up_panel {
     private JButton remove_check;
     private JButton edit_check;
     private JButton emp_sett_button;
+    private JButton places_button;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -195,6 +196,12 @@ public class Check_up_panel {
                 check_list.setModel(list_checkups);
 
                 JOptionPane.showMessageDialog(null, "Check up removed");
+            }
+        });
+        places_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Places_panel.main();
             }
         });
     }
