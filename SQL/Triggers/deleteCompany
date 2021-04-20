@@ -1,0 +1,4 @@
+CREATE TRIGGER deleteCompany
+	BEFORE DELETE ON podjetja
+	FOR each row
+	EXECUTE PROCEDURE deleteEmployees();
