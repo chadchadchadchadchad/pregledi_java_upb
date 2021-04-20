@@ -1,9 +1,9 @@
-CREATE OR REPLACE FUNCTION companyRegister(cName varchar, cEmail varchar, pass varchar, cLogo text) RETURNS VOID AS
+CREATE OR REPLACE FUNCTION companyRegister(cName varchar, cEmail varchar, pass varchar, cLogo text, place text) RETURNS VOID AS
 $$
 BEGIN
 
-    INSERT INTO podjetja(ime, email, geslo, logo)
-    VALUES (cName, cEmail, pass, cLogo);
+    INSERT INTO podjetja(ime, email, geslo, logo, kraj_id)
+    VALUES (cName, cEmail, pass, cLogo, (SELECT id FROM kraji WHERE ime = place));
 
 
 END;
