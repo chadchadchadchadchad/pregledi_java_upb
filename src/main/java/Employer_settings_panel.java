@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,59 +12,83 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
 
-public class Register_panel {
+public class Employer_settings_panel {
+    private JPanel panel;
     private JTextField name_text;
     private JTextField email_text;
-    private JButton register_button;
-    private JButton add_logo_button;
-    private static JFrame frame;
-    private JPanel panelReg;
+    private JTextField pass_text;
+    private JTextField passRep_text;
+    private JComboBox place_combo;
+    private JButton changeLogoButton;
+    private JButton saveChangesButton;
     private JLabel logo_label;
-    private JComboBox company_box;
-    private JPasswordField pass_text;
-    private JPasswordField app_pass_text;
-
+    private JButton deleteCompanyButton;
+    private static JFrame frame;
     public String fileName = "";
+    private static int id_p;
+    private companies company = new companies();
+
+    public void update_combo()
+    {
+        companies[] allTowns = database_change_employer_settings.getPlaces();
+        place_combo.removeAllItems();
+
+        for (companies item: allTowns) {
+            place_combo.addItem(item.Place);
+        }
+    }
+
+    public Employer_settings_panel() {
+        update_combo();
+        company = database_change_employer_settings.getEmployer(id_p);
+        name_text.setText(company.Name);
+        email_text.setText(company.Email);
+        place_combo.setSelectedItem(company.Place);
+
+        ImageIcon iconLogo = new ImageIcon("uploads/" + company.Logo + "");
+        logo_label.setIcon(iconLogo);
 
 
-    public Register_panel() {
-            String[] town_names = database_addemployee.returntowns();
-
-            for (String town: town_names){
-                company_box.addItem(town);
-            }
-            company_box.setSelectedItem(null);
-        register_button.addActionListener(new ActionListener() {
+        saveChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = name_text.getText();
-                String email = email_text.getText();
-                String pass = pass_text.getText();
-                String appPass = app_pass_text.getText();
-                String place = company_box.getSelectedItem().toString();
-                String olpas = pass;
+                String p1 = pass_text.getText();
+                String p2 = passRep_text.getText();
+                if(p1.equals(p2)) {
+                    company.Name = name_text.getText();
+                    company.Email = email_text.getText();
+                    company.Pass = getString(pass_text.getText());
+                    company.Logo = fileName;
+                    company.Place = place_combo.getSelectedItem().toString();
 
-                pass = getString(pass);
-
-                if (olpas.equals(appPass) && name.isBlank() == false && email.isBlank() == false && pass.isBlank() == false) {
-                    database_registration.registerCompany(name, email, pass, fileName, place);
+                    database_change_employer_settings.updateCompany(company);
+                    JOptionPane.showMessageDialog(null, "Saved changes successfully.");
+                    Check_up_panel.main(id_p);
                     frame.dispose();
-                    Main_panel.main(new String[] { "a", "b" });
                 }
 
-                else {
-                    JOptionPane.showMessageDialog(null, "Please re-check your credentials");
-                    JOptionPane.showMessageDialog(null, place);
-
+                else{
+                    JOptionPane.showMessageDialog(null, "Passwords must match.");
                 }
-
             }
-
         });
-        add_logo_button.addActionListener(new ActionListener() {
+        deleteCompanyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int dialogButton = JOptionPane.OK_CANCEL_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Beware, this action will permanently delete your company account and all its data.", "WARNING!", dialogButton);
+                if(dialogResult == 0) {
+                    JOptionPane.showMessageDialog(null, "It was nice doing business with you, Goodbye.");
+                    database_change_employer_settings.deleteCompany(company);
+                    System.exit(1);
+                } else {
 
+                }
+            }
+        });
+        changeLogoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 JFileChooser fc;
 
                 fc = new JFileChooser();
@@ -102,7 +129,6 @@ public class Register_panel {
 
             }
         });
-
     }
 
     private String getString(String pass) {
@@ -132,13 +158,13 @@ public class Register_panel {
         return pass;
     }
 
-
-    public static void main() {
-        frame = new JFrame("Frame");
-        frame.setContentPane(new Register_panel().panelReg);
+    public static void main(int idp) {
+        id_p = idp;
+        frame = new JFrame("Employer settings");
+        frame.setContentPane(new Employer_settings_panel().panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
-        frame.setSize(500,600);
+        frame.setSize(900,600);
         frame.setVisible(true);
     }
 }

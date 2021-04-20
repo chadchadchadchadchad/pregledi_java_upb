@@ -20,6 +20,7 @@ public class Check_up_panel {
     private JButton edit_check;
     private JButton emp_sett_button;
     private JButton places_button;
+    private JButton accountSettingsButton;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -202,6 +203,13 @@ public class Check_up_panel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Places_panel.main();
+            }
+        });
+        accountSettingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Employer_settings_panel.main(id_p);
+                frame.dispose();
             }
         });
     }
