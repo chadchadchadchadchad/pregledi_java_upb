@@ -17,6 +17,7 @@ public class Places_panel {
     private places plac = new places();
     private String[] arrTown;
     private String townNum;
+    private static int id_p;
 
 
     public void update_list()
@@ -45,6 +46,8 @@ public class Places_panel {
                 plac.PostalNum= place_num_text.getText();
                 database_places.addPlace(plac);
                 update_list();
+                place_name_text.setText("");
+                place_num_text.setText("");
             }
         });
         updateButton.addActionListener(new ActionListener() {
@@ -52,6 +55,8 @@ public class Places_panel {
             public void actionPerformed(ActionEvent e) {
                 database_places.updatePlace(place_name_text.getText(), place_num_text.getText(), plac.Name, plac.PostalNum);
                 update_list();
+                place_name_text.setText("");
+                place_num_text.setText("");
             }
         });
         deleteButton.addActionListener(new ActionListener() {
@@ -59,6 +64,8 @@ public class Places_panel {
             public void actionPerformed(ActionEvent e) {
                 database_places.removePlace(plac);
                 update_list();
+                place_name_text.setText("");
+                place_num_text.setText("");
             }
         });
         places_list.addListSelectionListener(new ListSelectionListener() {
@@ -78,9 +85,16 @@ public class Places_panel {
                 }
             }
         });
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                Check_up_panel.main(id_p);
+            }
+        });
     }
 
-    public static void main() {
+    public static void main(int idp) {
+        id_p = idp;
         frame = new JFrame("Places");
         frame.setContentPane(new Places_panel().panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
