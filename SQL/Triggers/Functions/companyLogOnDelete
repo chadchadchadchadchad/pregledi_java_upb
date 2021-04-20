@@ -1,0 +1,12 @@
+CREATE FUNCTION companyLogOnDelete()
+RETURNS TRIGGER as $$
+
+BEGIN
+	
+	INSERT INTO podjetjeLog (ime, email, geslo, logo, kraj_id)
+    VALUES (OLD.id, OLD.ime, OLD.email, OLD.geslo, OLD.logo, OLD.kraj_id);
+	
+	RETURN OLD;
+
+END
+$$ LANGUAGE 'plpgsql'
