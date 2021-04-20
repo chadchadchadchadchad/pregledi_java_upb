@@ -1,0 +1,4 @@
+CREATE TRIGGER deleteCentre
+	BEFORE DELETE ON zdravstveni_domovi
+	FOR each row
+	EXECUTE PROCEDURE deleteEmployees();
