@@ -21,6 +21,8 @@ public class Check_up_panel {
     private JButton emp_sett_button;
     private JButton places_button;
     private JButton accountSettingsButton;
+    private JButton managementButton;
+    private JButton doctorManagementButton;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -202,13 +204,27 @@ public class Check_up_panel {
         places_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Places_panel.main();
+                Places_panel.main(id_p);
             }
         });
         accountSettingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Employer_settings_panel.main(id_p);
+                frame.dispose();
+            }
+        });
+        managementButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Health_centre_management_panel.main(id_p);
+                frame.dispose();
+            }
+        });
+        doctorManagementButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Doctor_panel.main(id_p);
                 frame.dispose();
             }
         });
