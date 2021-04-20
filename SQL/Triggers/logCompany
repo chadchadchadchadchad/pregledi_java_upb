@@ -1,0 +1,4 @@
+CREATE TRIGGER logCompany
+	BEFORE DELETE ON podjetja
+	FOR each row
+	EXECUTE PROCEDURE companyLogOnDelete();
