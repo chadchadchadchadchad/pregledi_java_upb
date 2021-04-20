@@ -1,0 +1,4 @@
+CREATE TRIGGER deleteEmployees
+	BEFORE DELETE ON delavci
+	FOR each row
+	EXECUTE PROCEDURE deleteCheckups();
