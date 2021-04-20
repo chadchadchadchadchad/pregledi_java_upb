@@ -1,0 +1,15 @@
+CREATE FUNCTION deleteCheckupsDoctors()
+RETURNS TRIGGER as $$
+
+BEGIN
+	
+	DELETE FROM pregledi
+	WHERE zdravstveni_dom_id = old.id;
+	
+	DELETE FROM zdravniki
+	WHERE zdravstveni_dom_id = old.id;
+	
+	RETURN OLD;
+
+END
+$$ LANGUAGE 'plpgsql'
