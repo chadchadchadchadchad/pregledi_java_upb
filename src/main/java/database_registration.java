@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class database_registration {
-    public static Integer registerCompany(String imeP, String emailp, String geslo, String logo)
+    public static Integer registerCompany(String imeP, String emailp, String geslo, String logo, String place)
     {
         int id = 0;
         try {
@@ -16,7 +16,7 @@ public class database_registration {
             Connection c = DriverManager.getConnection(host, uName, uPass);
 
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT companyRegister('" + imeP + "', '" + emailp + "', '" + geslo + "', '" + logo + "')" );
+            ResultSet rs = stmt.executeQuery( "SELECT companyRegister('" + imeP + "', '" + emailp + "', '" + geslo + "', '" + logo + "', '" + place + "')" );
 
             rs.close();
             stmt.close();
