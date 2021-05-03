@@ -1,21 +1,23 @@
 import javax.swing.*;
-import org.jfree.*;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
 
 import java.awt.*;
-import java.util.Locale;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Graph_panel {
     private JPanel panel;
+    private JTextField textField1;
+    private JButton showChartButton;
+    private JTextField yeartext2;
     private static JFrame frame;
+    private charts chart = new charts();
+    private  int nums;
 
 
 public Graph_panel() {
@@ -38,21 +40,38 @@ public Graph_panel() {
 
         return ds;
     }*/
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    dataset.setValue(80, "prva", "druga");
-    dataset.setValue(45, "prva", "druga2");
-    dataset.setValue(86, "prva", "druga3");
-    dataset.setValue(30, "prva", "druga4");
-    dataset.setValue(12, "prva", "druga5");
-    dataset.setValue(65, "prva", "druga6");
 
-    JFreeChart chart = ChartFactory.createBarChart("Title", "Category", "Value", dataset);
-    CategoryPlot p = chart.getCategoryPlot();
-    p.setRangeGridlinePaint(Color.black);
-    ChartFrame frame = new ChartFrame("Results", chart);
-    frame.pack();
-    frame.setVisible(true);
 
+
+    showChartButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int yearS = Integer.parseInt(textField1.getText());
+            int year2 = Integer.parseInt(yeartext2.getText());
+
+
+            nums = database_graph_data.getNumOfChecks(chart);
+
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            dataset.setValue(nums, "nek value", yearS);
+
+
+            JFreeChart chart = ChartFactory.createBarChart("Number of checkups", "Year", "Number of checkups", dataset);
+            CategoryPlot p = chart.getCategoryPlot();
+            p.setRangeGridlinePaint(Color.black);
+
+            ChartFrame frame = new ChartFrame("Results", chart);
+            frame.pack();
+            frame.setVisible(true);
+        }
+    });
+    textField1.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(textField1.getText().length() == 4)
+                showChartButton.setEnabled(true);
+        }
+    });
 }
 
 

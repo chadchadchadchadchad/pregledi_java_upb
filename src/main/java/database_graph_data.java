@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class database_graph_data {
-    public static charts[] getCentres(charts charts) {
-        charts[] nums = new charts[1];
+    public static int getNumOfChecks(int year) {
+        int k = 0;
         try {
             String uName = "rwnxlyblnkntlj";
             String uPass = "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
@@ -16,33 +16,12 @@ public class database_graph_data {
 
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM pregledi WHERE datum_pregleda BETWEEN '" + charts.year + "-12-01' AND '" + charts.year + 1 + "-01-01';");
-            int st = 0;
             while (rs.next()) {
-                st++;
+                k = rs.getInt(1)
             }
             rs.close();
             stmt.close();
 
-            Statement stmt2 = c.createStatement();
-            ResultSet rs2 = stmt2.executeQuery("SELECT COUNT(*) FROM pregledi WHERE datum_pregleda BETWEEN '" + charts.year + "-12-01' AND '" + charts.year + 1 + "-01-01';");
-
-            nums = new charts[st];
-
-            int st2 = 0;
-            while (rs2.next()) {
-                charts chart = new charts();
-
-                chart.num = rs2.getInt(1);
-
-
-
-                nums[st2] = chart;
-
-                st2++;
-            }
-
-            rs2.close();
-            stmt2.close();
             c.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +29,8 @@ public class database_graph_data {
             System.exit(0);
         }
 
-        return nums;
+        //return nums;
+        return k;
     }
 
 }
