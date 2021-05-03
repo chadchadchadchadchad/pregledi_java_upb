@@ -1,3 +1,7 @@
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -23,6 +27,7 @@ public class Check_up_panel {
     private JButton accountSettingsButton;
     private JButton managementButton;
     private JButton doctorManagementButton;
+    private JButton chartButton;
     private static int id_p;
     private int id_worker;
     private int id_zd;
@@ -226,6 +231,13 @@ public class Check_up_panel {
             public void actionPerformed(ActionEvent e) {
                 Doctor_panel.main(id_p);
                 frame.dispose();
+            }
+        });
+        chartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Graph_panel.main();
+
             }
         });
     }
