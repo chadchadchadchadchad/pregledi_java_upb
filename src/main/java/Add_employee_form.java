@@ -53,6 +53,12 @@ public class Add_employee_form {
 
             }
         });
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                Check_up_panel.main(id_p);
+            }
+        });
     }
 
     public static void main(int idp) {
