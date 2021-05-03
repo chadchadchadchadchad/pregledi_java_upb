@@ -14,10 +14,15 @@ public class database_graph_data {
             Class.forName("org.postgresql.Driver");
             Connection c = DriverManager.getConnection(host, uName, uPass);
 
+            int year2 = year + 1;
+            year--;
+            System.out.println("SELECT COUNT(p.*) FROM pregledi p INNER JOIN delavci d ON d.id = p.delavec_id WHERE (p.datum_pregleda BETWEEN '" + year + "-12-31' AND '" + year2 + "-01-01') AND d.podjetje_id = "+ Check_up_panel.id_p +";");
+
+
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM pregledi WHERE datum_pregleda BETWEEN '" + charts.year + "-12-01' AND '" + charts.year + 1 + "-01-01';");
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(p.*) FROM pregledi p INNER JOIN delavci d ON d.id = p.delavec_id WHERE (p.datum_pregleda BETWEEN '" + year + "-12-31' AND '" + year2 + "-01-01') AND d.podjetje_id = "+ Check_up_panel.id_p +";");
             while (rs.next()) {
-                k = rs.getInt(1)
+                k = rs.getInt(1);
             }
             rs.close();
             stmt.close();

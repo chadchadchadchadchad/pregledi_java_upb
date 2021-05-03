@@ -28,7 +28,7 @@ public class Check_up_panel {
     private JButton managementButton;
     private JButton doctorManagementButton;
     private JButton chartButton;
-    private static int id_p;
+    public static int id_p;
     private int id_worker;
     private int id_zd;
     private int id_doc;

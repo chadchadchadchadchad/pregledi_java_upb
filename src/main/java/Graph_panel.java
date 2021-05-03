@@ -46,17 +46,23 @@ public Graph_panel() {
     showChartButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int yearS = Integer.parseInt(textField1.getText());
+            int year1 = Integer.parseInt(textField1.getText());
             int year2 = Integer.parseInt(yeartext2.getText());
 
-
-            nums = database_graph_data.getNumOfChecks(chart);
-
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            dataset.setValue(nums, "nek value", yearS);
+
+            while(year1 < year2 + 1)
+            {
+                nums = database_graph_data.getNumOfChecks(year1);
+                String year = String.valueOf(year1);
+                dataset.setValue(nums, "Number of checkups", year);
+
+                year1++;
+            }
 
 
-            JFreeChart chart = ChartFactory.createBarChart("Number of checkups", "Year", "Number of checkups", dataset);
+
+            JFreeChart chart = ChartFactory.createBarChart("Number of checkups", "Year", " ", dataset);
             CategoryPlot p = chart.getCategoryPlot();
             p.setRangeGridlinePaint(Color.black);
 
@@ -68,8 +74,25 @@ public Graph_panel() {
     textField1.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(textField1.getText().length() == 4)
+            if(textField1.getText().length() == 4 && yeartext2.getText().length() == 4)
                 showChartButton.setEnabled(true);
+            else
+            {
+                showChartButton.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "Both years have to be in the correct format (yyyy)");
+            }
+        }
+    });
+    yeartext2.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(textField1.getText().length() == 4 && yeartext2.getText().length() == 4)
+                showChartButton.setEnabled(true);
+            else
+            {
+                showChartButton.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "Both years have to be in the correct format (yyyy)");
+            }
         }
     });
 }
