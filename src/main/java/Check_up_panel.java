@@ -210,6 +210,7 @@ public class Check_up_panel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Places_panel.main(id_p);
+                frame.dispose();
             }
         });
         accountSettingsButton.addActionListener(new ActionListener() {
@@ -238,6 +239,13 @@ public class Check_up_panel {
             public void actionPerformed(ActionEvent e) {
                 Graph_panel.main();
 
+            }
+        });
+        edit_check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                edit_checkups.main(id_worker, checkups_list[check_list.getSelectedIndex()].id, id_p);
+                frame.dispose();
             }
         });
     }

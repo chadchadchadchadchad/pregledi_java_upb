@@ -64,6 +64,43 @@ public class database_checkcheckup {
         return names;
     }
 
+    public static checkups returncheckup(int id_c)
+    {
+        checkups names = new checkups();
+        try {
+            String uName = "rwnxlyblnkntlj";
+            String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
+            String host = "jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d89q761es01jua";
+
+            Class.forName("org.postgresql.Driver");
+            Connection c = DriverManager.getConnection(host, uName, uPass);
+
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT datum_pregleda, zdravnik_id, delavec_id, zdravstveni_dom_id FROM pregledi WHERE id = "+ id_c +";" );
+
+            while ( rs.next() ) {
+                String datum = rs.getString(1);
+
+                String[] novdatum = datum.split(" ");
+                names.Datum_pregleda = novdatum[0];
+
+                names.Doc_id = rs.getInt(2);
+                names.Emp_id = rs.getInt(3);
+                names.Zd_id = rs.getInt(4);
+            }
+            rs.close();
+            stmt.close();
+
+            c.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        return names;
+    }
+
     public static void delete_checkup(int id_check)
     {
         try {
@@ -76,6 +113,32 @@ public class database_checkcheckup {
 
             Statement stmt = c.createStatement();
             stmt.executeUpdate( "DELETE FROM pregledi WHERE id = " + id_check + ";" );
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public static void update_checkup(checkups check)
+    {
+        try {
+            String uName = "rwnxlyblnkntlj";
+            String uPass= "465c86b2ff6199771cf8e82088e23ce686b7fb951d00fae60c6ac7dc87fe9091";
+            String host = "jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/d89q761es01jua";
+
+            Class.forName("org.postgresql.Driver");
+            Connection c = DriverManager.getConnection(host, uName, uPass);
+
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT edit_check_up('"+ check.Datum_pregleda +"', "+ check.Zd_id +", "+ check.Doc_id+", "+ check.Emp_id +", "+ check.id +");" );
+
+            while ( rs.next() ) {
+
+            }
+            rs.close();
             stmt.close();
             c.close();
         } catch (Exception e) {
