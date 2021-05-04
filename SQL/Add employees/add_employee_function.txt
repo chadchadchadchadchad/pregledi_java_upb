@@ -19,3 +19,5 @@ BEGIN
     RETURN id_employee;
 END;
 $$ LANGUAGE 'plpgsql';
+
+//this function is used for adding employees into the database

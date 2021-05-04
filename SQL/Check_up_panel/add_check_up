@@ -10,3 +10,5 @@ BEGIN
     VALUES (date_new, zd_id, del_id, doc_id);
 END;
 $$ LANGUAGE 'plpgsql';
+
+//this function is used for adding a checkup to the database
